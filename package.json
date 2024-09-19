@@ -1,3 +1,4 @@
+
 {
   "name": "TestApp",
   "version": "0.0.1",
@@ -11,7 +12,9 @@
   },
   "dependencies": {
     "@notifee/react-native": "^9.0.2",
+    "@react-native-firebase/analytics": "^20.5.0",
     "@react-native-firebase/app": "^20.5.0",
+    "@react-native-firebase/crashlytics": "^20.5.0",
     "@react-native-firebase/messaging": "^20.5.0",
     "react": "18.3.1",
     "react-native": "0.75.3"

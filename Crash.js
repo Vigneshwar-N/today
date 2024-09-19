@@ -3,7 +3,7 @@ import {View, Text, PermissionsAndroid, Platform, Button} from 'react-native';
 import messaging from '@react-native-firebase/messaging';
 import notifee, {AndroidImportance} from '@notifee/react-native';
 import analytics from '@react-native-firebase/analytics';
-import {Crashlytics} from '@react-native-firebase/crashlytics';
+import crashlytics from '@react-native-firebase/crashlytics';
 
 export default function App() {
   // Request permissions and get FCM token
@@ -55,11 +55,13 @@ export default function App() {
 
     return () => unsubscribeForeground();
   }, []);
+
   const predefinedEvents = async () => {
     await analytics().logLogin({
       method: 'facebook',
     });
   };
+
   const customEvents = async () => {
     await analytics().logLogin('cart', {
       if: 12345,
@@ -68,21 +70,32 @@ export default function App() {
       size: 'M',
     });
   };
+
   const getUserDetails = () => {
-    new Promise(function (resolve, reject) {
+    new Promise((resolve, reject) => {
       resolve('Success');
       reject('error');
     });
   };
-  React.useEffect(() => {
+
+  useEffect(() => {
     getUserDetails();
   }, []);
+
+  const handleCrash = () => {
+    // Log an event to Crashlytics
+    crashlytics().log('Testing Crashlytics');
+
+    // Simulate a crash
+    crashlytics().crash();
+  };
 
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <Text>Test App</Text>
-      <Button title="predefined" onPress={predefinedEvents} />
-      <Button title="custom" onPress={customEvents} />
+      <Button title="Predefined Event" onPress={predefinedEvents} />
+      <Button title="Custom Event" onPress={customEvents} />
+      <Button title="Crash the App" onPress={handleCrash} />
     </View>
   );
 }
