@@ -1,0 +1,4 @@
+fire base installation
+
+1.npm install --save @react-native-firebase/app🟢
+2.add namespace from build  com.testapp
